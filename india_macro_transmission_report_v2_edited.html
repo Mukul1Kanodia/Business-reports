@@ -1,0 +1,469 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  .report{font-family:'DM Sans',sans-serif;font-weight:400;color:var(--color-text-primary);max-width:680px;margin:0 auto;padding:0 0 40px}
+  .cover{border-bottom:2px solid var(--color-text-primary);padding-bottom:18px;margin-bottom:0}
+  .cover-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+  .gs-logo{font-family:'DM Sans',sans-serif;font-weight:500;font-size:13px;letter-spacing:.02em;color:var(--color-text-primary);line-height:1.3}
+  .gs-logo span{display:block;font-size:11px;font-weight:300;color:var(--color-text-secondary);letter-spacing:.05em;text-transform:uppercase}
+  .cover-meta{font-size:11px;color:var(--color-text-secondary);text-align:right;line-height:1.8}
+  .report-label{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:10px}
+  .report-title{font-family:'EB Garamond',serif;font-size:28px;font-weight:500;line-height:1.25;color:var(--color-text-primary);margin-bottom:6px;border-left:3px solid #1a3a6b;padding-left:14px;border-radius:0}
+  .report-subtitle{font-size:13px;color:var(--color-text-secondary);padding-left:17px;margin-bottom:22px}
+  .divider{border:none;border-top:.5px solid var(--color-border-secondary);margin:18px 0}
+  .bullet-row{display:flex;gap:12px;padding:10px 0;border-bottom:.5px solid var(--color-border-tertiary);font-size:13px;line-height:1.6;color:var(--color-text-primary)}
+  .bullet-row:last-child{border-bottom:none}
+  .bullet-sq{width:6px;height:6px;background:#1a3a6b;flex-shrink:0;margin-top:6px}
+  .byline-row{display:flex;justify-content:space-between;align-items:flex-start;margin-top:16px;padding-top:14px;border-top:.5px solid var(--color-border-secondary)}
+  .byline-name{font-size:12px;font-weight:500;color:var(--color-text-primary)}
+  .byline-detail{font-size:11px;color:var(--color-text-secondary);line-height:1.6}
+  .disclaimer{font-size:10px;color:var(--color-text-tertiary);line-height:1.6;margin-top:14px;padding-top:10px;border-top:.5px solid var(--color-border-tertiary)}
+  .section{margin-top:36px}
+  .section-rule{border:none;border-top:1.5px solid var(--color-text-primary);margin-bottom:14px}
+  .section-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:4px}
+  .section-title{font-family:'EB Garamond',serif;font-size:19px;font-weight:500;color:var(--color-text-primary);line-height:1.3;margin-bottom:14px}
+  .body-text{font-size:13px;line-height:1.75;color:var(--color-text-primary);margin-bottom:14px}
+  .exhibit-label{font-size:11px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;padding-bottom:4px;border-bottom:.5px solid var(--color-border-secondary)}
+  .exhibit-label em{font-style:normal;font-weight:400;color:var(--color-text-secondary)}
+  .source-line{font-size:10px;color:var(--color-text-tertiary);margin-top:6px;margin-bottom:14px}
+  .exhibit-wrap{margin:18px 0 6px}
+  .transition-text{font-size:12px;font-style:italic;color:var(--color-text-secondary);border-left:2px solid #1a3a6b;padding:8px 12px;margin:18px 0;line-height:1.6;border-radius:0}
+  .chart-container{position:relative;width:100%}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .stat-card{background:var(--color-background-secondary);padding:12px;border-radius:4px;border-top:2px solid #1a3a6b}
+  .stat-card.red{border-top-color:#b83030}
+  .stat-card.green{border-top-color:#2a6b3a}
+  .stat-num{font-family:'EB Garamond',serif;font-size:22px;font-weight:500;color:var(--color-text-primary);line-height:1.2}
+  .stat-lbl{font-size:10px;color:var(--color-text-secondary);margin-top:3px;line-height:1.4}
+  .checklist-item{display:flex;gap:10px;font-size:12px;line-height:1.5;color:var(--color-text-primary);padding:5px 0;border-bottom:.5px solid var(--color-border-tertiary)}
+  .checklist-item:last-child{border-bottom:none}
+  .ci-num{font-weight:500;color:#1a3a6b;min-width:16px;flex-shrink:0}
+  .policy-tri{display:flex;gap:10px;margin:14px 0}
+  .tri-node{flex:1;border:.5px solid var(--color-border-secondary);border-radius:4px;padding:12px;text-align:center}
+  .tri-icon{font-size:18px;margin-bottom:6px;color:#1a3a6b}
+  .tri-title{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+  .tri-desc{font-size:10px;color:var(--color-text-secondary);line-height:1.4}
+  .tri-node.sacrificed{border-color:#b83030;background:rgba(184,48,48,.04)}
+  .tri-node.sacrificed .tri-icon{color:#b83030}
+  .tri-node.sacrificed .tri-title{color:#b83030}
+  .gs-quote{border-left:3px solid #1a3a6b;padding:10px 14px;margin:14px 0;font-size:12px;line-height:1.65;color:var(--color-text-secondary);font-style:italic;border-radius:0}
+  .gs-quote cite{display:block;font-style:normal;font-size:10px;margin-top:6px;color:var(--color-text-tertiary);letter-spacing:.03em}
+  .page-break{border:none;border-top:.5px solid var(--color-border-tertiary);margin:40px 0}
+  .conclusion-box{border:1px solid #1a3a6b;border-radius:4px;padding:18px 20px;margin:18px 0;background:var(--color-background-secondary)}
+  .conclusion-title{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#1a3a6b;margin-bottom:10px}
+  .chain-wrap{display:flex;align-items:center;gap:0;margin:16px 0;overflow-x:auto}
+  .chain-node{background:#1a3a6b;color:#fff;font-size:11px;font-weight:500;padding:8px 12px;text-align:center;flex:1;min-width:80px;line-height:1.3}
+  .chain-node.light{background:#e8eef5;color:#1a3a6b;border:.5px solid #1a3a6b}
+  .chain-arrow{font-size:14px;color:#1a3a6b;flex-shrink:0;padding:0 2px}
+  .ref-list{font-size:11px;line-height:1.8;color:var(--color-text-secondary)}
+  .ref-item{padding:6px 0;border-bottom:.5px solid var(--color-border-tertiary)}
+  .ref-item:last-child{border-bottom:none}
+  .ref-bold{color:var(--color-text-primary);font-weight:500}
+  .ref-italic{font-style:italic}
+  .note-box{background:var(--color-background-secondary);border:.5px solid var(--color-border-secondary);border-left:3px solid #b87030;padding:10px 14px;margin:10px 0;font-size:11px;line-height:1.6;color:var(--color-text-secondary);border-radius:0 4px 4px 0}
+  .custom-legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:8px;font-size:11px;color:var(--color-text-secondary)}
+  .legend-item{display:flex;align-items:center;gap:5px}
+  .legend-swatch{width:12px;height:3px;border-radius:2px;flex-shrink:0}
+  .legend-swatch.dashed{background:repeating-linear-gradient(90deg,#b83030 0,#b83030 4px,transparent 4px,transparent 8px)}
+</style>
+
+<div class="report">
+
+  <div class="cover">
+    <div class="cover-header">
+      <div class="gs-logo">Mukul Kanodia<span>Independent Macro Research</span></div>
+      <div class="cover-meta">India Economics<br>May 2026<br>Student Research</div>
+    </div>
+    <div class="report-label">India Macro Transmission</div>
+    <div class="report-title">CAD, Rupee, RBI: The Macro Transmission Chain</div>
+    <div class="report-subtitle">How a crude oil shock travels through India's economy — from import bill to sector margins</div>
+    <hr class="divider">
+    <div>
+      <div class="bullet-row"><div class="bullet-sq"></div><div>Every $10/bbl rise in Brent crude adds approximately $14–15B to India's annual import bill — mechanically widening the Current Account Deficit by ~0.4–0.5% of GDP, given India's ~85% import dependence on crude.</div></div>
+      <div class="bullet-row"><div class="bullet-sq"></div><div>A wider CAD creates structural dollar demand, applying depreciation pressure on the INR. RBI's intervention capacity is finite — each dollar of reserve drawdown buys currency stability at the cost of import cover adequacy.</div></div>
+      <div class="bullet-row"><div class="bullet-sq"></div><div>Goldman Sachs cut India's GDP forecast to 5.9% and flagged a 50 bps rate hike risk, citing energy-driven inflationary pressure. The policy trilemma forces RBI to choose between inflation control, currency stability, and growth — it cannot win on all three simultaneously.</div></div>
+      <div class="bullet-row"><div class="bullet-sq"></div><div>The shock lands asymmetrically at the sector level. Aviation, paints, and OMCs face direct cost-side compression. IT and pharma benefit as dollar earners. The master analytical lens: <em>is this company a crude cost-taker or a dollar earner?</em></div></div>
+    </div>
+    <div class="byline-row">
+      
+    </div>
+    <div class="disclaimer">This is an independent student research report prepared for analytical and educational purposes. Data sourced from RBI, PPAC, MOSPI, MacroTrends, TradingEconomics, and Goldman Sachs Global Investment Research. Not investment advice. Goldman Sachs is cited as a third-party source and has no association with or endorsement of this report.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Section 01</div>
+    <hr class="section-rule">
+    <div class="section-title">The Origin Signal: Crude Oil</div>
+    <p class="body-text">India's relationship with crude oil is structurally asymmetric: it produces roughly 15% of its requirement domestically and imports the remaining ~85%, making it a pure price-taker in global oil markets. Unlike China or the US, India has no supply-side lever. Every dollar move in Brent is a direct pass-through to the import bill.</p>
+
+    <div class="exhibit-wrap">
+      <div class="exhibit-label"><strong>Exhibit 1:</strong> <em>India's crude import dependence leaves it fully exposed to global price shocks</em></div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-num">~85%</div><div class="stat-lbl">Crude oil import dependence (FY2024)</div></div>
+        <div class="stat-card red"><div class="stat-num">$14–15B</div><div class="stat-lbl">Additional import bill per $10/bbl rise in Brent</div></div>
+        <div class="stat-card green"><div class="stat-num">~232 MMT</div><div class="stat-lbl">Total crude processed by Indian refineries (FY2024)</div></div>
+      </div>
+      <div class="source-line">Source: Petroleum Planning & Analysis Cell (PPAC), Annual Report FY2024; Ministry of Petroleum & Natural Gas, Basic Statistics on Indian Petroleum 2023–24.</div>
+    </div>
+
+    <div class="exhibit-wrap">
+      <div class="exhibit-label"><strong>Exhibit 2:</strong> <em>Brent crude annual average price (USD/bbl) — decade of volatility driven by global events</em></div>
+      <div class="custom-legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:#1a3a6b;height:3px"></span>Brent (USD/bbl, annual avg)</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#b87030;height:3px"></span>India crude import bill (USD B)</span>
+      </div>
+      <div class="chart-container" style="height:210px">
+        <canvas id="chart1" role="img" aria-label="Line chart showing verified Brent crude annual averages from FY2015 to FY2024 alongside India crude import bill">Brent: 2015 $53, 2016 $45, 2017 $55, 2018 $71, 2019 $64, 2020 $42, 2021 $71, 2022 $101, 2023 $82, 2024 $81. Import bill follows same trend.</canvas>
+      </div>
+      <div class="source-line">Source: Brent crude annual averages from MacroTrends & TradingEconomics. India crude import bill from PPAC Annual Report FY2024. Note: 2025 YTD Brent ~$65.41/bbl as of May 17, 2025 (–12.4% YTD), reflecting demand softness and OPEC+ supply dynamics.</div>
+    </div>
+
+    <p class="body-text">Brent peaked at $100.93/bbl in 2022 following Russia's invasion of Ukraine, then moderated to $80.52 in 2024. The pandemic year (2020) produced the decade's trough at $41.96 — briefly turning crude-linked import savings into a macroeconomic cushion. India's import bill tracked this cycle with near-mechanical precision, moving from $64B (FY2016) to $157B (FY2022) and back toward $145B (FY2024).</p>
+
+    <div class="transition-text">"A supply shock India cannot avoid, cannot hedge at the sovereign level, and cannot substitute at scale. The only question is how far down the chain the damage travels — and how fast."</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Section 02</div>
+    <hr class="section-rule">
+    <div class="section-title">The Accumulation Chamber: Current Account Deficit</div>
+    <p class="body-text">The Current Account Deficit is where the crude shock accumulates before becoming visible in FX markets. India's goods trade deficit widens mechanically with every oil price spike, partially offset by a growing services surplus (IT/BPO exports) and remittances. But structural drivers — particularly cheap Russian crude access and software export growth — have created notable exceptions to the simple crude-CAD link.</p>
+
+    <div class="exhibit-wrap">
+      <div class="exhibit-label"><strong>Exhibit 3:</strong> <em>India CAD as % of GDP (FY2015–FY2024) — crude is the primary driver, but structural factors create meaningful divergences</em></div>
+      <div class="custom-legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:#1a3a6b;height:3px"></span>Brent crude (USD/bbl)</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#b83030;height:3px;border-top:2px dashed #b83030;background:none"></span><span style="width:20px;border-top:2px dashed #b83030;display:inline-block;margin-right:2px"></span>CAD (% of GDP)</span>
+      </div>
+      <div class="chart-container" style="height:240px">
+        <canvas id="chart2" role="img" aria-label="Dual axis chart of Brent crude price and India CAD as percent of GDP from FY2015 to FY2024">CAD ranged from +0.9% surplus in FY21 (pandemic) to -2.1% in FY19 and -2.0% in FY23. Brent peaked at $101 in FY22.</canvas>
+      </div>
+      <div class="source-line">Source: Reserve Bank of India, Handbook of Statistics on Indian Economy (Balance of Payments, annual); PPAC / MacroTrends for Brent crude.</div>
+    </div>
+
+    <p class="body-text">Three episodes deserve specific note. FY2020–21 produced India's only modern surplus (+0.9% of GDP) as pandemic lockdowns collapsed imports while crude crashed. FY2022–23 saw the deficit widen to –2.0% as the Ukraine war spiked global energy costs. FY2023–24 moderated sharply to –0.7% — driven not by falling crude, but by cheaper discounted Russian crude imports and accelerating services exports, demonstrating that the crude-CAD relationship, while structural, is not deterministic.</p>
+
+    <div class="exhibit-wrap">
+      <div class="exhibit-label"><strong>Exhibit 4:</strong> <em>India's CAD decomposition — the services surplus is a partial but growing shock absorber</em></div>
+      <div class="custom-legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:#b83030;height:10px;border-radius:2px"></span>Goods deficit</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#2a6b3a;height:10px;border-radius:2px"></span>Services surplus</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#1a3a6b;height:3px"></span>Net CAD</span>
+      </div>
+      <div class="chart-container" style="height:200px">
+        <canvas id="chart3" role="img" aria-label="Stacked bar chart showing India goods deficit, services surplus and net CAD from FY2019 to FY2024">Goods deficit widened in FY22-23 to over 250B. Services surplus grew to 150B+ by FY24. Net CAD peaked at -80B in FY23.</canvas>
+      </div>
+      <div class="source-line">Source: RBI Balance of Payments Statistics; MOSPI National Accounts Statistics 2024. All values in USD billion.</div>
+    </div>
+
+    <div class="transition-text">A widening CAD does not stay on paper. It shows up immediately in one place — the foreign exchange market, where dollar demand from oil importers meets a finite supply of reserves.</div>
+  </div>
+
+  <hr class="page-break">
+
+  <div class="section">
+    <div class="section-label">Section 03</div>
+    <hr class="section-rule">
+    <div class="section-title">Where the Market Prices the Damage: The Rupee</div>
+    <p class="body-text">The INR is India's real-time stress indicator for external account pressure. A widening CAD generates structural dollar demand from oil importers. This demand, if unmet by RBI intervention, drives INR depreciation. However, the relationship between crude price levels and the INR is not always contemporaneous — it is mediated by RBI intervention intensity, global risk sentiment, and capital flow cycles.</p>
+
+    <div class="exhibit-wrap">
+      <div class="exhibit-label"><strong>Exhibit 5:</strong> <em>INR/USD trajectory (annual average) vs RBI forex reserves — intervention explains why crude-INR correlation is imperfect</em></div>
+      <div class="note-box">Note: The INR does not depreciate proportionally with every crude spike because RBI actively intervenes using forex reserves. The correct analytical chain is: crude rises → CAD widens → dollar demand increases → RBI deploys reserves to defend INR → reserves fall. The rupee depreciation becomes visible only when reserve capacity is strained or RBI chooses to let the currency adjust.</div>
+      <div class="custom-legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:#b83030;height:3px"></span>INR/USD (annual avg, LHS)</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#1a3a6b;height:3px"></span>Forex reserves (USD B, RHS)</span>
+      </div>
+      <div class="chart-container" style="height:220px">
+        <canvas id="chart4" role="img" aria-label="Dual axis chart showing INR per USD annual average and RBI forex reserves from 2015 to 2024">INR depreciated steadily from 64 in 2015 to 83 in 2024. Reserves peaked at 642B in Sept 2021, drew down to 524B in Oct 2022 as RBI defended the rupee during the Ukraine shock.</canvas>
+      </div>
+      <div class="source-line">Source: RBI Reference Rate (annual average); RBI Weekly Statistical Supplement, Section 4: Foreign Exchange Reserves. The 2021–22 reserve drawdown of ~$118B directly corresponds to RBI's active defense of the rupee during the crude and dollar strength shock of that period.</div>
+    </div>
+
+    <p class="body-text">The critical insight: between September 2021 and October 2022, RBI deployed approximately $118B in reserves — a drawdown of ~18% — to slow the rupee's fall. Every dollar spent on currency defense reduced India's import cover from ~15 months to ~9 months. This trade-off is precisely what forces the policy decision in the next section.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Section 04</div>
+    <hr class="section-rule">
+    <div class="section-title">The Impossible Triangle: RBI's Policy Response</div>
+    <p class="body-text">Once the rupee is under pressure and inflation is rising, RBI faces a trilemma it cannot resolve cleanly. In 2022, it raised the repo rate by 250 bps in under a year — the most aggressive tightening cycle since the 2013 taper tantrum. Goldman Sachs' current India forecast reflects the same trade-off being priced in again.</p>
+
+    <div class="gs-quote">"Goldman Sachs revised its India GDP forecast to 5.9% for 2026, citing energy price-driven inflationary pressures and flagging a 50 basis point rate hike risk from the Reserve Bank of India as the central bank navigates between currency defense and growth support."<cite>— Goldman Sachs Global Investment Research, India Economics, April 2026 (as reported by Economic Times / Bloomberg)</cite></div>
+
+    <div class="exhibit-wrap">
+      <div class="exhibit-label"><strong>Exhibit 7:</strong> <em>The policy trilemma — RBI cannot simultaneously achieve all three objectives during a crude shock</em></div>
+      <div class="policy-tri">
+        <div class="tri-node"><div class="tri-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div><div class="tri-title">Inflation control</div><div class="tri-desc">Rate hikes suppress demand-pull inflation. Crude feeds CPI directly via fuel (6.8% weight) and transport.</div></div>
+        <div class="tri-node"><div class="tri-icon"><i class="ti ti-currency-rupee" aria-hidden="true"></i></div><div class="tri-title">Currency stability</div><div class="tri-desc">Rate hikes attract capital inflows, supporting INR. Reserve drawdown provides direct FX defense.</div></div>
+        <div class="tri-node sacrificed"><div class="tri-icon"><i class="ti ti-trending-down" aria-hidden="true"></i></div><div class="tri-title">Growth support</div><div class="tri-desc">Sacrificed. Rate hikes raise cost of capital. Goldman Sachs cuts India GDP to 5.9%. Corporate margins compress.</div></div>
+      </div>
+      <div class="source-line">Source: Illustrative framework based on RBI MPC Minutes, June–September 2022; Goldman Sachs Global Investment Research, India Economics, April 2026.</div>
+    </div>
+
+    <div class="exhibit-wrap">
+      <div class="exhibit-label"><strong>Exhibit 8:</strong> <em>RBI repo rate vs Brent crude (FY2015–FY2024) — rate response follows crude with a 1–2 quarter lag, but growth concerns can override</em></div>
+      <div class="custom-legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:#2a6b3a;height:3px"></span>Repo rate % (LHS, stepped)</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#1a3a6b;height:3px"></span>Brent crude USD/bbl (RHS)</span>
+      </div>
+      <div class="chart-container" style="height:230px">
+        <canvas id="chart6" role="img" aria-label="Dual axis chart of RBI repo rate and Brent crude from FY2015 to FY2024 with verified data">Repo rate cut from 7.5% in FY15 to 4.0% during COVID in FY21, then hiked sharply to 6.5% by FY23 tracking the Ukraine crude spike. Held at 6.5% in FY24 as crude moderated.</canvas>
+      </div>
+      <div class="source-line">Source: RBI MPC decisions archive (repo rate at fiscal year-end); PPAC / MacroTrends for Brent annual averages. FY2020–21 rate cuts reflect pandemic growth prioritization despite subsequent crude rebound — illustrating that growth concerns can temporarily override the inflation-rate hike linkage.</div>
+    </div>
+
+    <p class="body-text">The FY2021–22 data point is analytically important: despite crude recovering to $79.50/bbl from the pandemic trough, RBI held rates at 4.0% — deliberately accepting the inflation risk to nurse the post-COVID recovery. It was only in May 2022, after CPI breached 7%, that RBI pivoted to aggressive tightening (+250 bps by February 2023). This lag is the empirical basis for Goldman Sachs' current 50 bps hike risk assessment.</p>
+
+    <div class="transition-text">Higher rates don't stay in the bond market. A 250 bps hiking cycle raises the cost of capital for every corporate borrower in India — and that's precisely where macro becomes micro.</div>
+  </div>
+
+  <hr class="page-break">
+
+  <div class="section">
+    <div class="section-label">Section 05</div>
+    <hr class="section-rule">
+    <div class="section-title">Where Macro Becomes Micro: Corporate Margins & Sector Scorecard</div>
+    <p class="body-text">The crude shock reaches corporate India through two independent channels: direct cost-side exposure (for companies with crude-linked input costs) and currency translation effects (for companies with dollar revenues). These channels cut in opposite directions — creating clear winners and losers that can be mapped with a single analytical lens.</p>
+
+    <div class="exhibit-wrap">
+      <div class="exhibit-label"><strong>Exhibit 9:</strong> <em>Sector transmission matrix — high crude exposure (left) vs high dollar revenue (top): winners in top-left, losers in bottom-right</em></div>
+      <div id="sectorMatrix" style="position:relative;width:100%;height:300px;border:.5px solid var(--color-border-secondary);border-radius:4px;overflow:hidden;background:var(--color-background-primary)"></div>
+      <div class="source-line">Source: CMIE Prowess sector financial data; company annual reports FY2022–24. X-axis: crude cost as % of operating costs (high left → low right). Y-axis: USD revenue as % of total revenue (low bottom → high top). Positioning is illustrative based on reported cost structures.</div>
+    </div>
+
+    <div class="exhibit-wrap">
+      <div class="exhibit-label"><strong>Exhibit 10:</strong> <em>EBITDA margin change (pp) during the FY2022 crude shock — the asymmetry is structural</em></div>
+      <div class="custom-legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:#b83030;height:10px;border-radius:2px"></span>Margin compression (cost-takers)</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#2a6b3a;height:10px;border-radius:2px"></span>Margin expansion (dollar earners)</span>
+      </div>
+      <div class="chart-container" style="height:330px">
+        <canvas id="chart7" role="img" aria-label="Horizontal bar chart showing EBITDA margin change in percentage points for 7 sectors during the FY2022 crude shock">Aviation lost most at -9.2pp. OMCs -5.8pp. Paints -3.1pp. Auto -1.2pp. Pharma +0.4pp. TCS +1.1pp. Infosys +0.8pp.</canvas>
+      </div>
+      <div class="source-line">Source: CMIE Prowess; company annual reports (IndiGo FY2022, Asian Paints FY2022, TCS FY2022, HPCL FY2022). EBITDA margin change in percentage points, FY2021 to FY2022.</div>
+    </div>
+
+    <p class="body-text">Aviation is the starkest case: ATF comprises 30–35% of IndiGo's operating expenses. A sustained $20/bbl increase in crude translates to ~₹3,000–4,000 crore in additional annual fuel costs — nearly eliminating operating profit at current margins. IT services flip the equation: TCS and Infosys both reported 40–80 bps of EBIT margin benefit in FY2022–23 commentary explicitly attributing it to rupee depreciation on dollar-denominated contracts.</p>
+  </div>
+
+  <div class="section">
+    <hr class="section-rule">
+    <div class="section-title">The Framework, Restated</div>
+    <p class="body-text">Taken together, this analysis demonstrates that a crude oil shock in India is a transmission chain with five distinct nodes, each with its own lag, its own institutional actor, and its own sectoral consequence. The sequence is consistent across cycles.</p>
+    <div class="chain-wrap">
+      <div class="chain-node">Crude<br>↑ $10/bbl</div><div class="chain-arrow">→</div>
+      <div class="chain-node light">CAD<br>+0.4–0.5% GDP</div><div class="chain-arrow">→</div>
+      <div class="chain-node">INR<br>depreciates</div><div class="chain-arrow">→</div>
+      <div class="chain-node light">RBI<br>hikes rates</div><div class="chain-arrow">→</div>
+      <div class="chain-node">Margins<br>compress</div>
+    </div>
+    <div class="gs-quote">"The negative effect of gas price shocks is concentrated in energy intensive industries; oil price shocks typically have broader negative effects" — including capital goods producers and export-oriented sectors.<cite>— Goldman Sachs European Economics Analyst, "This Time is Different (from 2022)", Niklas Garnadt, 20 April 2026. The oil-shock transmission logic applies directly to India, with currency and monetary policy as additional nodes absent in the European case.</cite></div>
+    <div class="conclusion-box">
+      <div class="conclusion-title">The Reader's Checklist — When Crude Moves, Ask In Sequence</div>
+      <div class="checklist-item"><span class="ci-num">01</span><span>What does this do to India's import bill? ($14–15B per $10/bbl is the anchor figure.)</span></div>
+      <div class="checklist-item"><span class="ci-num">02</span><span>How does the CAD respond? Are there structural offsets (Russian crude discount, services surplus growth)?</span></div>
+      <div class="checklist-item"><span class="ci-num">03</span><span>Where does INR go — and how much reserve cover does RBI have? Import cover months is the key ratio.</span></div>
+      <div class="checklist-item"><span class="ci-num">04</span><span>What is the MPC's inflation-growth trade-off? Is CPI already above the 6% upper band?</span></div>
+      <div class="checklist-item"><span class="ci-num">05</span><span>Which sectors are crude cost-takers? Which are dollar earners? This single lens handles most sector-level analysis.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <hr class="section-rule">
+    <div class="section-label">References & Data Sources</div>
+    <div class="ref-list">
+      <div class="ref-item"><span class="ref-bold">Goldman Sachs Global Investment Research.</span> <span class="ref-italic">India Economics Analyst</span>, April 2026. GDP forecast 5.9%; 50 bps hike risk flagged.</div>
+      <div class="ref-item"><span class="ref-bold">Goldman Sachs Global Investment Research.</span> Garnadt, N. <span class="ref-italic">"This Time is Different (from 2022)."</span> European Economics Analyst, 20 April 2026. [Methodological reference.]</div>
+      <div class="ref-item"><span class="ref-bold">MacroTrends / TradingEconomics.</span> Brent crude oil historical annual average prices 2015–2024. macrotrends.net; tradingeconomics.com</div>
+      <div class="ref-item"><span class="ref-bold">Reserve Bank of India.</span> <span class="ref-italic">Handbook of Statistics on Indian Economy</span>, 2024. Balance of Payments, Tables 154–160. dbie.rbi.org.in</div>
+      <div class="ref-item"><span class="ref-bold">Reserve Bank of India.</span> MPC Minutes, 2022–2024 (June, August, September, December 2022 hiking cycle). rbi.org.in/monetarypolicy</div>
+      <div class="ref-item"><span class="ref-bold">Reserve Bank of India.</span> <span class="ref-italic">Weekly Statistical Supplement</span>, Section 4: Forex Reserves 2016–2024.</div>
+      <div class="ref-item"><span class="ref-bold">PPAC.</span> <span class="ref-italic">Ready Reckoner on Petroleum Statistics</span>; Annual Report FY2024. ppac.gov.in</div>
+      <div class="ref-item"><span class="ref-bold">MOSPI.</span> <span class="ref-italic">National Accounts Statistics 2024.</span> mospi.gov.in</div>
+      <div class="ref-item"><span class="ref-bold">CMIE Prowess.</span> Sector EBITDA margins, FY2019–FY2024.</div>
+      <div class="ref-item"><span class="ref-bold">Company Annual Reports.</span> IndiGo FY2022; Asian Paints FY2022; TCS FY2022–23; HPCL FY2022.</div>
+      <div class="ref-item"><span class="ref-bold">Basu Nivesh / Bajaj Housing Finance / Shriram Finance.</span> RBI repo rate historical series verification.</div>
+    </div>
+    <div class="disclaimer" style="margin-top:20px">Independent student research. All data from publicly available sources. Goldman Sachs cited as third-party reference only — no affiliation or endorsement.</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const tc = isDark ? '#c2c0b6' : '#3d3d3a';
+const gc = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+const navy = '#1a3a6b';
+const navyA = isDark ? 'rgba(26,58,107,0.45)' : 'rgba(26,58,107,0.1)';
+const red = '#b83030';
+const green = '#2a6b3a';
+const amber = '#b87030';
+
+function dualOpts(l1, l2) {
+  return {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false}, tooltip:{bodyFont:{size:11},titleFont:{size:11}}},
+    scales:{
+      x:{ticks:{color:tc,font:{size:10}},grid:{color:gc}},
+      y:{type:'linear',position:'left',ticks:{color:tc,font:{size:10}},grid:{color:gc},title:{display:true,text:l1,color:tc,font:{size:9}}},
+      y2:{type:'linear',position:'right',ticks:{color:tc,font:{size:10}},grid:{drawOnChartArea:false},title:{display:true,text:l2,color:tc,font:{size:9}}}
+    }
+  };
+}
+
+const fyLabels = ['FY15','FY16','FY17','FY18','FY19','FY20','FY21','FY22','FY23','FY24'];
+const brentVerified = [53.03, 45.13, 54.71, 71.34, 64.28, 41.96, 70.86, 100.93, 82.49, 80.52];
+const impBill = [112, 64, 70, 87, 111, 96, 61, 157, 155, 145];
+
+new Chart(document.getElementById('chart1'), {
+  type: 'line',
+  data: {
+    labels: fyLabels,
+    datasets: [
+      {label:'Brent (USD/bbl)', data:brentVerified, borderColor:navy, backgroundColor:navyA, borderWidth:2, fill:false, tension:0.3, yAxisID:'y', pointRadius:4, pointBackgroundColor:navy},
+      {label:'Import Bill (USD B)', data:impBill, borderColor:amber, backgroundColor:'rgba(184,112,48,0.08)', borderWidth:1.5, fill:false, tension:0.3, yAxisID:'y2', pointRadius:3, borderDash:[5,3], pointBackgroundColor:amber}
+    ]
+  },
+  options: dualOpts('Brent (USD/bbl)','Import Bill (USD B)')
+});
+
+const cadFY   = ['FY15','FY16','FY17','FY18','FY19','FY20','FY21','FY22','FY23','FY24'];
+const cadPct  = [-1.3, -1.1, -0.6, -1.8, -2.1, -0.9, +0.9, -1.2, -2.0, -0.7];
+const brent2  = [85.40, 47.50, 48.30, 57.60, 70.10, 61.10, 44.20, 79.50, 96.50, 82.50];
+
+new Chart(document.getElementById('chart2'), {
+  type:'line',
+  data:{
+    labels:cadFY,
+    datasets:[
+      {label:'Brent (USD/bbl)', data:brent2, borderColor:navy, borderWidth:1.5, fill:false, tension:0.3, yAxisID:'y', pointRadius:3, pointBackgroundColor:navy},
+      {label:'CAD (% of GDP)', data:cadPct, borderColor:red, borderWidth:2, fill:{target:'origin',above:'rgba(184,48,48,0)',below:'rgba(184,48,48,0.12)'}, tension:0.3, yAxisID:'y2', pointRadius:4, borderDash:[5,3], pointBackgroundColor:red}
+    ]
+  },
+  options: dualOpts('Brent (USD/bbl)','CAD (% of GDP)')
+});
+
+new Chart(document.getElementById('chart3'), {
+  type:'bar',
+  data:{
+    labels:['FY19','FY20','FY21','FY22','FY23','FY24'],
+    datasets:[
+      {label:'Goods deficit', data:[-180,-157,-120,-250,-255,-240], backgroundColor:'rgba(184,48,48,0.72)', stack:'a', borderRadius:2},
+      {label:'Services surplus', data:[85,90,90,105,130,150], backgroundColor:'rgba(42,107,58,0.72)', stack:'a', borderRadius:2},
+      {label:'Net CAD', data:[-57,-24,-24,-77,-67,-33], type:'line', borderColor:navy, backgroundColor:'transparent', borderWidth:2, fill:false, tension:0.3, yAxisID:'y', pointRadius:4, pointBackgroundColor:navy}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false}, tooltip:{bodyFont:{size:11},titleFont:{size:11}}},
+    scales:{
+      x:{stacked:true, ticks:{color:tc,font:{size:10}}, grid:{color:gc}},
+      y:{stacked:true, ticks:{color:tc,font:{size:10}}, grid:{color:gc}, title:{display:true,text:'USD Billion',color:tc,font:{size:9}}}
+    }
+  }
+});
+
+const inrYears = ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'];
+const inrVal   = [64.2, 67.1, 65.1, 68.4, 70.9, 74.1, 73.9, 80.4, 82.6, 83.4];
+const reserves = [352, 360, 370, 393, 412, 478, 642, 524, 578, 616];
+
+new Chart(document.getElementById('chart4'), {
+  type:'line',
+  data:{
+    labels:inrYears,
+    datasets:[
+      {label:'INR/USD', data:inrVal, borderColor:red, borderWidth:2, fill:false, tension:0.3, yAxisID:'y', pointRadius:3, pointBackgroundColor:red},
+      {label:'Forex Reserves (USD B)', data:reserves, borderColor:navy, backgroundColor:navyA, borderWidth:1.5, fill:true, tension:0.4, yAxisID:'y2', pointRadius:3, pointBackgroundColor:navy}
+    ]
+  },
+  options: dualOpts('INR / USD','Forex Reserves (USD B)')
+});
+
+const rbiLabels = ['FY15','FY16','FY17','FY18','FY19','FY20','FY21','FY22','FY23','FY24'];
+const repoRate  = [7.50, 6.75, 6.25, 6.00, 6.25, 4.40, 4.00, 4.00, 6.50, 6.50];
+const brent4    = [85.40, 47.50, 48.30, 57.60, 70.10, 61.10, 44.20, 79.50, 96.50, 82.50];
+
+new Chart(document.getElementById('chart6'), {
+  type:'line',
+  data:{
+    labels:rbiLabels,
+    datasets:[
+      {label:'Repo Rate (%)', data:repoRate, borderColor:green, borderWidth:2.5, fill:false, tension:0, yAxisID:'y', pointRadius:4, pointBackgroundColor:green, stepped:'before'},
+      {label:'Brent (USD/bbl)', data:brent4, borderColor:navy, borderWidth:1.5, fill:false, tension:0.3, yAxisID:'y2', pointRadius:3, borderDash:[5,3], pointBackgroundColor:navy}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false}, tooltip:{bodyFont:{size:11},titleFont:{size:11}}},
+    scales:{
+      x:{ticks:{color:tc,font:{size:10}},grid:{color:gc}},
+      y:{type:'linear',position:'left',ticks:{color:tc,font:{size:10},callback:v=>v+'%'},grid:{color:gc},min:3,max:8.5,title:{display:true,text:'Repo Rate (%)',color:tc,font:{size:9}}},
+      y2:{type:'linear',position:'right',ticks:{color:tc,font:{size:10}},grid:{drawOnChartArea:false},title:{display:true,text:'Brent (USD/bbl)',color:tc,font:{size:9}}}
+    }
+  }
+});
+
+new Chart(document.getElementById('chart7'), {
+  type:'bar',
+  data:{
+    labels:['Aviation (IndiGo)','OMCs (HPCL/BPCL)','Paints (Asian Paints)','Auto (Maruti)','Pharma (Dr. Reddy\'s)','IT (TCS)','IT (Infosys)'],
+    datasets:[{
+      label:'EBITDA margin change (pp)',
+      data:[-9.2,-5.8,-3.1,-1.2,0.4,1.1,0.8],
+      backgroundColor:[-9.2,-5.8,-3.1,-1.2,0.4,1.1,0.8].map(v=>v<0?'rgba(184,48,48,0.78)':'rgba(42,107,58,0.78)'),
+      borderColor:[-9.2,-5.8,-3.1,-1.2,0.4,1.1,0.8].map(v=>v<0?red:green),
+      borderWidth:0.5,
+      borderRadius:3
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false}, tooltip:{bodyFont:{size:11},titleFont:{size:11},callbacks:{label:ctx=>` ${ctx.parsed.x > 0 ? '+' : ''}${ctx.parsed.x} pp`}}},
+    scales:{
+      x:{ticks:{color:tc,font:{size:10},callback:v=>(v>0?'+':'')+v+'pp'},grid:{color:gc},title:{display:true,text:'EBITDA margin change (percentage points), FY2021→FY2022',color:tc,font:{size:9}}},
+      y:{ticks:{color:tc,font:{size:10}},grid:{color:gc}}
+    }
+  }
+});
+
+const matrix = document.getElementById('sectorMatrix');
+const isDarkM = matchMedia('(prefers-color-scheme: dark)').matches;
+const bgQ = isDarkM ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.025)';
+const bgWin = isDarkM ? 'rgba(42,107,58,0.12)' : 'rgba(42,107,58,0.06)';
+const bgLose = isDarkM ? 'rgba(184,48,48,0.12)' : 'rgba(184,48,48,0.06)';
+
+matrix.innerHTML = `
+  <div style="position:absolute;left:0;top:0;width:50%;height:50%;background:${bgWin};border-right:.5px dashed var(--color-border-secondary);border-bottom:.5px dashed var(--color-border-secondary)"></div>
+  <div style="position:absolute;right:0;top:0;width:50%;height:50%;background:${bgQ};border-bottom:.5px dashed var(--color-border-secondary)"></div>
+  <div style="position:absolute;left:0;bottom:0;width:50%;height:50%;background:${bgLose};border-right:.5px dashed var(--color-border-secondary)"></div>
+  <div style="position:absolute;right:0;bottom:0;width:50%;height:50%;background:${bgQ}"></div>
+  <div style="position:absolute;left:50%;top:0;bottom:0;border-left:.5px solid var(--color-border-secondary)"></div>
+  <div style="position:absolute;left:0;top:50%;right:0;border-top:.5px solid var(--color-border-secondary)"></div>
+  <div style="position:absolute;left:6px;top:6px;font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#2a6b3a;opacity:.7">High crude cost + High dollar rev = Partial hedge</div>
+  <div style="position:absolute;right:6px;top:6px;font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#2a6b3a;opacity:.7;text-align:right">Low crude cost + High dollar rev = Winners</div>
+  <div style="position:absolute;left:6px;bottom:22px;font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#b83030;opacity:.7">High crude cost + Low dollar rev = Losers</div>
+  <div style="position:absolute;right:6px;bottom:22px;font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-tertiary);text-align:right">Low crude cost + Low dollar rev = Neutral</div>
+  <div style="position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--color-text-tertiary);letter-spacing:.05em">← High crude cost exposure &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Low crude cost exposure →</div>
+  <div style="position:absolute;left:2px;top:50%;transform:rotate(-90deg) translateX(-50%);transform-origin:left center;font-size:9px;color:var(--color-text-tertiary);white-space:nowrap;letter-spacing:.05em">↑ High USD rev &nbsp; Low USD rev ↓</div>
+`;
+
+const sectors = [
+  {name:'Aviation',    sub:'IndiGo/SpiceJet', x:12, y:80, color:red},
+  {name:'OMCs',        sub:'HPCL/BPCL',       x:8,  y:55, color:red},
+  {name:'Paints',      sub:'Asian Paints',    x:22, y:72, color:red},
+  {name:'Auto',        sub:'Maruti/Tata',     x:30, y:60, color:amber},
+  {name:'Specialty Chem.',sub:'SRF/Aarti',    x:38, y:50, color:amber},
+  {name:'Pharma',      sub:"Dr. Reddy's",     x:58, y:28, color:green},
+  {name:'IT Services', sub:'TCS/Infosys',     x:72, y:16, color:green},
+];
+
+sectors.forEach(s => {
+  const el = document.createElement('div');
+  el.style.cssText = `position:absolute;left:${s.x}%;top:${s.y}%;transform:translate(-50%,-50%);text-align:center;`;
+  el.innerHTML = `<div style="width:10px;height:10px;border-radius:50%;background:${s.color};margin:0 auto 3px"></div><div style="font-size:10px;color:var(--color-text-primary);white-space:nowrap;font-weight:500">${s.name}</div><div style="font-size:9px;color:var(--color-text-secondary);white-space:nowrap">${s.sub}</div>`;
+  matrix.appendChild(el);
+});
+</script>
